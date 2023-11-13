@@ -66,9 +66,7 @@ public class HashListAutocomplete implements Autocompletor {
                 }
                 if(myMap.containsKey(currentword.substring(0,k))){
                     myMap.get(currentword.substring(0,k)).add(newTerm);
-                }
-                //if map doesn't yet have prefix of then word, create it and add term to list
-                else {
+                }                else {
                     List<Term> newtermlist = new ArrayList<Term>();
                     newtermlist.add(newTerm);
                     myMap.put(terms[i].substring(0,k), newtermlist);
