@@ -35,7 +35,7 @@ public class HashListAutocomplete implements Autocompletor {
     @Override
     public List<Term> topMatches(String prefix, int k) {
         if (k == 0) {//k has to be reall weighted number
-			throw new IllegalArgumentException("Illegal value of k:"+k);
+			new ArrayList<>();
 		}
         if (prefix.length() > MAX_PREFIX){
             prefix = prefix.substring(0,MAX_PREFIX);
