@@ -45,7 +45,7 @@ public class BinarySearchLibrary {
 	 *         Return -1 if there is no such object in list.
 	 */
 	public static <T> int firstIndex(List<T> list, T target, Comparator<T> comp) {
-		if (list == null) {//k has to be reall weighted number
+		if (list.isEmpty() == true) {//k has to be reall weighted number
 			return -1;
 		}
 		int low = -1; // 
@@ -83,7 +83,7 @@ public class BinarySearchLibrary {
 	 *         if there is no such object in list.
 	 */
 	public static <T> int lastIndex(List<T> list,T target, Comparator<T> comp) {
-		if (list == null) {//k has to be reall weighted number
+		if (list.isEmpty() == true) {//k has to be reall weighted number
 			return -1;
 		}
 		int low = 0;

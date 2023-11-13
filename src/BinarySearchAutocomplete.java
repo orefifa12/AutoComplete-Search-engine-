@@ -109,7 +109,7 @@ public class BinarySearchAutocomplete implements Autocompletor {
 			throw new IllegalArgumentException("Illegal value of k:"+k);
 		}
 		if (k == 0) {//k has to be reall weighted number
-			new ArrayList<>();
+			return Collections.emptyList();
 		}
 
 		Term dummy = new Term(prefix,0);
