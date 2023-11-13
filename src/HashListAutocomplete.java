@@ -56,23 +56,23 @@ public class HashListAutocomplete implements Autocompletor {
 
         for (int i = 0; i < terms.length; i++) {
             Term newTerm = new Term(terms[i],weights[i]);
-            mySize += BYTES_PER_CHAR * terms[i].length() + BYTES_PER_DOUBLE;
+            int newTermlength = terms[i].length();
+            String currentword = terms[i];
+            mySize += BYTES_PER_CHAR * newTermlength  + BYTES_PER_DOUBLE;
 
             for(int k = 0; k <= MAX_PREFIX; k++){
-                if(terms[i].length() < k){
+                if(newTermlength < k){
                     break;
                 }
-                //if map already has the prefix of the word, add it to the corresponding list
-                if(myMap.containsKey(terms[i].substring(0,k))){
-                    //if(!myMap.get(terms[i].substring(0,j)).contains(inputTerm)){
-                    myMap.get(terms[i].substring(0,k)).add(newTerm);
+                if(myMap.containsKey(currentword.substring(0,k))){
+                    myMap.get(currentword.substring(0,k)).add(newTerm);
                 }
                 //if map doesn't yet have prefix of then word, create it and add term to list
                 else {
-                    List<Term> inputList = new ArrayList<Term>();
-                    inputList.add(newTerm);
-                    myMap.put(terms[i].substring(0,k), inputList);
-                    mySize += BYTES_PER_CHAR * terms[i].substring(0,k).length();;
+                    List<Term> newtermlist = new ArrayList<Term>();
+                    newtermlist.add(newTerm);
+                    myMap.put(terms[i].substring(0,k), newtermlist);
+                    mySize += BYTES_PER_CHAR * currentword.substring(0,k).length();;
                 }
                 
             }
@@ -80,8 +80,8 @@ public class HashListAutocomplete implements Autocompletor {
         }
         
         for(String key: myMap.keySet()){
-            List<Term> toSort = myMap.get(key);
-            Collections.sort(toSort, Comparator.comparing(Term::getWeight).reversed());
+            List<Term> unsorted = myMap.get(key);
+            Collections.sort(unsorted, Comparator.comparing(Term::getWeight).reversed());
         }
         
     }
