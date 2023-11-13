@@ -9,7 +9,7 @@ import java.util.Comparator;
  * @author owen astrachan
  * @date October 8, 2020
  */
-public class    PrefixComparator implements Comparator<Term> {
+public class PrefixComparator implements Comparator<Term> {
 
     private int myPrefixSize; // size of prefix
 
@@ -40,8 +40,48 @@ public class    PrefixComparator implements Comparator<Term> {
      * @return < 0 if v < w, == 0 if v == w, and > 0 if v > w
      */
     public int compare(Term v, Term w) {
-        // change this to use myPrefixSize as specified,
-        // replacing line below with code
-        return v.getWord().compareTo(w.getWord());
+        if (myPrefixSize == 0){
+            return 0;
+        }
+        String word1 = v.getWord();//word1
+        String word2 = w.getWord();//word2
+
+        int compare = myPrefixSize; 
+        boolean same = true;
+
+        if (word1.length() < myPrefixSize || word2.length() < myPrefixSize){ // if either word is less than the prefixsize only check for up to the lenght of that word
+            if (word1.length() < word2.length()){
+                compare = word1.length();
+            }
+            else if (word1.length() > word2.length()){
+                compare = word2.length();
+            }
+        }
+
+    
+        for (int i = 0; i < compare && i < word1.length() && i < word2.length(); i++) {
+            if (word1.charAt(i) < word2.charAt(i)) {//if a letter is diff ret
+                same = false;
+                return -1;
+            } else if (word1.charAt(i) > word2.charAt(i)) { //
+                same = false;
+                return 1;
+            }
+            if (word1.charAt(i) == word2.charAt(i) && i+1 == myPrefixSize && same == true){//if last letters are same, stil the same
+                return 0;//if 
+            }
+        }
+
+        if (word1.length() < word2.length() && same == true){
+            return -1;
+        }
+        else if (word1.length() > word2.length() && same == true){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+        
+        
     }
 }

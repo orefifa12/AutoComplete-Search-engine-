@@ -98,8 +98,8 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 */
 	
 	@Override
-	public List<Term> topMatches(String prefix, int k) {
-		if (k < 0) {
+	public List<Term> topMatches(String prefix, int k) {// A prefix which all returned words must start with and K is the max words returned
+		if (k < 0) {//k has to be reall weighted number
 			throw new IllegalArgumentException("Illegal value of k:"+k);
 		}
 
@@ -112,10 +112,29 @@ public class BinarySearchAutocomplete implements Autocompletor {
 			return new ArrayList<>();
 		}
 
-		// write code here for assignment
+		PriorityQueue<Term> pq = 
+				new PriorityQueue<>(Comparator.comparing(Term::getWeight));
+		
+		for (int i = first; i<= last; i++){
+			Term t = myTerms[i];
+			if (!t.getWord().startsWith(prefix)) {
+				continue; // don't process if doesn't begin with prefix
+			}
+			
+			if (pq.size() < k) {
+				pq.add(t);
+			} else if (pq.peek().getWeight() < t.getWeight()) {
+				pq.remove();
+				pq.add(t);
+			}
+		}
 
-		return null;
-	
+		int numResults = Math.min(k, pq.size());
+		LinkedList<Term> ret = new LinkedList<>();
+		for (int i = 0; i < numResults; i++) {
+			ret.addFirst(pq.remove());
+		}
+		return ret;
 	}
 
 	@Override
