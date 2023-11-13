@@ -108,6 +108,9 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		if (k < 0) {//k has to be reall weighted number
 			throw new IllegalArgumentException("Illegal value of k:"+k);
 		}
+		if (k == 0) {//k has to be reall weighted number
+			new ArrayList<>();
+		}
 
 		Term dummy = new Term(prefix,0);
 		PrefixComparator comp = PrefixComparator.getComparator(prefix.length());
