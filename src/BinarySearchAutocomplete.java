@@ -55,6 +55,9 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 *         being equal. If no such index exists, return -1 instead.
 	 */
 	public static int firstIndexOf(Term[] a, Term key, Comparator<Term> comparator) {
+		if (a == null) {//k has to be reall weighted number
+			return -1;
+		}
 		int index = BinarySearchLibrary.firstIndex(Arrays.asList(a), key, comparator);
 		return index;
 	}
@@ -73,6 +76,9 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 *         being equal. If no such index exists, return -1 instead.
 	 */
 	public static int lastIndexOf(Term[] a, Term key, Comparator<Term> comparator) {
+		if (a == null) {//k has to be reall weighted number
+			return -1;
+		}
 		int index = BinarySearchLibrary.lastIndex(Arrays.asList(a), key, comparator);
 		return index;
 	}
